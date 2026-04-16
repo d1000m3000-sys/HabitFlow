@@ -1,77 +1,43 @@
-let habits = JSON.parse(localStorage.getItem("habits")) || [];
+let data = JSON.parse(localStorage.getItem("h")) || [];
 
 function save() {
-    localStorage.setItem("habits", JSON.stringify(habits));
+    localStorage.setItem("h", JSON.stringify(data));
 }
 
-function getToday() {
-    return new Date().toISOString().split('T')[0];
-}
+function add() {
+    let input = document.getElementById("input");
 
-function addHabit() {
-    let input = document.getElementById("habitInput");
+    if (!input.value) return;
 
-    if (input.value === "") return;
-
-    habits.push({
-        name: input.value,
-        dates: [],
-        streak: 0
-    });
-
+    data.push(input.value);
     input.value = "";
-    save();
-    render();
-}
-
-function toggleHabit(index) {
-    let today = getToday();
-    let habit = habits[index];
-
-    if (habit.dates.includes(today)) {
-        habit.dates = habit.dates.filter(d => d !== today);
-        habit.streak = Math.max(0, habit.streak - 1);
-    } else {
-        habit.dates.push(today);
-        habit.streak++;
-    }
 
     save();
-    render();
+    show();
 }
 
-function deleteHabit(index) {
-    habits.splice(index, 1);
+function del(i) {
+    data.splice(i, 1);
     save();
-    render();
+    show();
 }
 
-function render() {
-    let list = document.getElementById("habitList");
+function show() {
+    let list = document.getElementById("list");
     list.innerHTML = "";
 
-    habits.forEach((h, i) => {
-        let doneToday = h.dates.includes(getToday());
-
+    data.forEach((x, i) => {
         list.innerHTML += `
-        <div class="habit">
-            <div onclick="toggleHabit(${i})">
-                <span class="${doneToday ? 'done' : ''}">
-                    ${h.name}
-                </span>
-                <div style="font-size:12px;color:#aaa;">
-                    🔥 ${h.streak} يوم
-                </div>
-            </div>
-
-            <button onclick="deleteHabit(${i})">🗑</button>
+        <div class="item">
+            ${x}
+            <button onclick="del(${i})">x</button>
         </div>`;
     });
 }
 
-render();
+show();
 
-// تسجيل service worker
+// PWA
 if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("service-worker.js");
+    navigator.serviceWorker.register("./sw.js");
 }

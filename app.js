@@ -9,9 +9,19 @@ function add() {
 
     if (!input.value) return;
 
-    data.push(input.value);
+    data.push({
+        name: input.value,
+        done: false
+    });
+
     input.value = "";
 
+    save();
+    show();
+}
+
+function toggle(i) {
+    data[i].done = !data[i].done;
     save();
     show();
 }
@@ -28,9 +38,14 @@ function show() {
 
     data.forEach((x, i) => {
         list.innerHTML += `
-        <div class="item">
-            ${x}
-            <button onclick="del(${i})">x</button>
+        <div class="item ${x.done ? 'done' : ''}">
+            <div class="left">
+                <span class="check" onclick="toggle(${i})">
+                    ${x.done ? "✔" : "⭕"}
+                </span>
+                <span>${x.name}</span>
+            </div>
+            <button class="delete" onclick="del(${i})">🗑</button>
         </div>`;
     });
 }

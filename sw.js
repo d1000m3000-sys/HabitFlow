@@ -1,4 +1,4 @@
-const cacheName = "app-v1";
+const cacheName = "habitflow-v1";
 
 self.addEventListener("install", e => {
   e.waitUntil(

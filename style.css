@@ -1,17 +1,20 @@
 body {
-    font-family: sans-serif;
-    background: #0f0f0f;
-    color: white;
     margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+    color: white;
 }
 
 .container {
+    max-width: 500px;
+    margin: auto;
     padding: 20px;
 }
 
 h1 {
     text-align: center;
     color: #00ff99;
+    margin-bottom: 20px;
 }
 
 .add-box {
@@ -22,30 +25,51 @@ h1 {
 
 input {
     flex: 1;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 12px;
+    border-radius: 15px;
     border: none;
+    outline: none;
+    background: #1f1f1f;
+    color: white;
 }
 
 button {
-    background: #00ff99;
+    background: linear-gradient(135deg, #00ff99, #00cc88);
     border: none;
-    padding: 10px 15px;
-    border-radius: 10px;
+    padding: 12px 15px;
+    border-radius: 15px;
     cursor: pointer;
+    color: black;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: scale(1.05);
 }
 
 .habit {
-    background: #1a1a1a;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
     padding: 15px;
-    border-radius: 15px;
-    margin-bottom: 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: 0.2s;
+}
+
+.habit:hover {
+    transform: translateY(-3px);
 }
 
 .done {
     text-decoration: line-through;
-    color: gray;
+    color: #888;
+}
+
+.habit span {
+    cursor: pointer;
+    font-size: 16px;
 }

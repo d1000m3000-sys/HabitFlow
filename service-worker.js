@@ -1,11 +1,14 @@
+const CACHE_NAME = "habitflow-v2";
+
 self.addEventListener("install", e => {
     e.waitUntil(
-        caches.open("habitflow").then(cache => {
+        caches.open(CACHE_NAME).then(cache => {
             return cache.addAll([
-                "./",
-                "./index.html",
-                "./style.css",
-                "./app.js"
+                "/",
+                "/index.html",
+                "/style.css",
+                "/app.js",
+                "/manifest.json"
             ]);
         })
     );
@@ -13,6 +16,8 @@ self.addEventListener("install", e => {
 
 self.addEventListener("fetch", e => {
     e.respondWith(
-        caches.match(e.request).then(response => response || fetch(e.request))
+        caches.match(e.request).then(res => {
+            return res || fetch(e.request);
+        })
     );
 });
